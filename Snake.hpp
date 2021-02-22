@@ -9,16 +9,16 @@
 #include <vector>
 #include <ctime>
 
-namespace Random {
+namespace random {
   inline std::mt19937_64 mersenne{ static_cast<std::mt19937_64::result_type>(std::time(0)) };
-} // namespace Random
+} // namespace random
 
-namespace Constants {
+namespace constants {
   inline constexpr int WIDTH{ 36 };
   inline constexpr int HEIGHT{ 16 };
   inline constexpr char SNAKE_SEGMENT_CHAR{ 'S' };
   inline constexpr char FOOD_CHAR{ '*' };
-} // namespace Constants
+} // namespace constants
 
 struct SnakeSegment {
  int y{ 0 };
