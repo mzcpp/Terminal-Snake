@@ -9,7 +9,7 @@ Snake::Snake() : score(0), delay(100'000), direction('L'), caughtFood(false) {
   int snakeSegments{ 5 };
   getmaxyx(stdscr, yMax, xMax);
 
-  window = newwin(Constants::HEIGHT, Constants::WIDTH, yMax / 2 - Constants::HEIGHT / 2, xMax / 2 - Constants::WIDTH / 2);
+  window = newwin(constants::HEIGHT, constants::WIDTH, yMax / 2 - constants::HEIGHT / 2, xMax / 2 - constants::WIDTH / 2);
 
   box(window, 0, 0);
   nodelay(window, true);
@@ -17,12 +17,12 @@ Snake::Snake() : score(0), delay(100'000), direction('L'), caughtFood(false) {
 
   /* Creating snake and putting it on board. */
   for (int i = 0; i < snakeSegments; ++i) {
-    snake.emplace_back(SnakeSegment{ Constants::HEIGHT / 2, (Constants::WIDTH / 2) + i - snakeSegments / 2 });
-    mvwaddch(window, snake[i].y, snake[i].x, Constants::SNAKE_SEGMENT_CHAR);
+    snake.emplace_back(SnakeSegment{ constants::HEIGHT / 2, (constants::WIDTH / 2) + i - snakeSegments / 2 });
+    mvwaddch(window, snake[i].y, snake[i].x, constants::SNAKE_SEGMENT_CHAR);
   }
 
   generateFood();
-  mvwprintw(window, Constants::HEIGHT - 1, Constants::WIDTH / 2 - 6, "  Score: %d  ", score);
+  mvwprintw(window, constants::HEIGHT - 1, constants::WIDTH / 2 - 6, "  Score: %d  ", score);
   wrefresh(window);
 }
 
@@ -33,12 +33,12 @@ Snake::~Snake() {
 
 void Snake::generateFood() {
   bool invalidPlace = false;
-  std::uniform_int_distribution randomX{ 1 , Constants::WIDTH - 2 };
-  std::uniform_int_distribution randomY{ 1 , Constants::HEIGHT - 2 };
+  std::uniform_int_distribution randomX{ 1 , constants::WIDTH - 2 };
+  std::uniform_int_distribution randomY{ 1 , constants::HEIGHT - 2 };
 
   while (true) {
-    int tmpX = randomX(Random::mersenne);
-    int tmpY = randomY(Random::mersenne);
+    int tmpX = randomX(random::mersenne);
+    int tmpY = randomY(random::mersenne);
 
     for (std::size_t i = 0; i < snake.size(); ++i) {
       if (snake[i].x == tmpX && snake[i].y == tmpY) {
@@ -56,7 +56,7 @@ void Snake::generateFood() {
     break;
   }
 
-  mvwaddch(window, food.y, food.x, Constants::FOOD_CHAR);
+  mvwaddch(window, food.y, food.x, constants::FOOD_CHAR);
   wrefresh(window);
 }
 
@@ -73,7 +73,7 @@ bool Snake::detectCollision() {
     caughtFood = true;
     generateFood();
     score += 10;
-    mvwprintw(window, Constants::HEIGHT - 1, Constants::WIDTH / 2 - 6, "  Score: %d  ", score);
+    mvwprintw(window, constants::HEIGHT - 1, constants::WIDTH / 2 - 6, "  Score: %d  ", score);
     if ((score % 100) == 0) {
       delay -= 10'000;
     }
@@ -118,17 +118,17 @@ void Snake::moveSnake() {
   int posY{ snake.front().y };
 
   if (direction == 'L') {
-    posX = (snake.front().x - 1 <= 0) ? Constants::WIDTH - 2 : snake.front().x - 1;
+    posX = (snake.front().x - 1 <= 0) ? constants::WIDTH - 2 : snake.front().x - 1;
   } else if (direction == 'R') {
-    posX = (snake.front().x + 1 >= Constants::WIDTH - 1) ? 1 : snake.front().x + 1;
+    posX = (snake.front().x + 1 >= constants::WIDTH - 1) ? 1 : snake.front().x + 1;
   } else if (direction == 'U') {
-    posY = (snake.front().y - 1 <= 0) ? Constants::HEIGHT - 2 : snake.front().y - 1;
+    posY = (snake.front().y - 1 <= 0) ? constants::HEIGHT - 2 : snake.front().y - 1;
   } else if (direction == 'D') {
-    posY = (snake.front().y + 1 >= Constants::HEIGHT - 1) ? 1 : snake.front().y + 1;
+    posY = (snake.front().y + 1 >= constants::HEIGHT - 1) ? 1 : snake.front().y + 1;
   }
 
   snake.insert(snake.begin(), SnakeSegment{ posY, posX });
-  mvwaddch(window, snake.front().y, snake.front().x, Constants::SNAKE_SEGMENT_CHAR);
+  mvwaddch(window, snake.front().y, snake.front().x, constants::SNAKE_SEGMENT_CHAR);
   wrefresh(window);
 }
 
@@ -138,7 +138,7 @@ void Snake::startGame() {
     usleep(delay);
   }
 
-  mvwprintw(window, Constants::HEIGHT / 2, Constants::WIDTH / 2 - 5, "Game Over!");
+  mvwprintw(window, constants::HEIGHT / 2, constants::WIDTH / 2 - 5, "Game Over!");
   nodelay(window, false);
   wgetch(window);
 }
