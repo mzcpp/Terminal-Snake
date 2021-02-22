@@ -37,8 +37,8 @@ void Snake::generateFood() {
   std::uniform_int_distribution randomY{ 1 , constants::HEIGHT - 2 };
 
   while (true) {
-    int tmpX = randomX(random::mersenne);
-    int tmpY = randomY(random::mersenne);
+    int tmpX = randomX(rng::mersenne);
+    int tmpY = randomY(rng::mersenne);
 
     for (std::size_t i = 0; i < snake.size(); ++i) {
       if (snake[i].x == tmpX && snake[i].y == tmpY) {
