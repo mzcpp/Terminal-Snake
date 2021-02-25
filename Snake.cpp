@@ -28,6 +28,7 @@ Snake::Snake() : score(0), delay(100'000), direction('L'), caughtFood(false) {
 
 Snake::~Snake() {
   nodelay(window, false);
+  delwin(window);
   endwin();
 }
 
