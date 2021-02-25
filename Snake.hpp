@@ -11,7 +11,7 @@
 
 namespace rng {
   inline std::mt19937_64 mersenne{ static_cast<std::mt19937_64::result_type>(std::time(0)) };
-} // namespace random
+} // namespace rng
 
 namespace constants {
   inline constexpr int WIDTH{ 36 };
