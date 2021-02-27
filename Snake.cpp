@@ -6,8 +6,8 @@ Snake::Snake() : score(0), delay(100'000), direction('L'), caughtFood(false) {
   noecho();
 
   int yMax, xMax;
-  int snakeSegments{ 5 };
   getmaxyx(stdscr, yMax, xMax);
+  int snakeSegments = 5;
 
   window = newwin(constants::HEIGHT, constants::WIDTH, yMax / 2 - constants::HEIGHT / 2, xMax / 2 - constants::WIDTH / 2);
 
@@ -17,7 +17,7 @@ Snake::Snake() : score(0), delay(100'000), direction('L'), caughtFood(false) {
 
   /* Creating snake and putting it on board. */
   for (int i = 0; i < snakeSegments; ++i) {
-    snake.emplace_back(SnakeSegment{ constants::HEIGHT / 2, (constants::WIDTH / 2) + i - snakeSegments / 2 });
+    snake.emplace_back(SnakeSegment(constants::HEIGHT / 2, (constants::WIDTH / 2) + i - snakeSegments / 2));
     mvwaddch(window, snake[i].y, snake[i].x, constants::SNAKE_SEGMENT_CHAR);
   }
 
@@ -34,8 +34,8 @@ Snake::~Snake() {
 
 void Snake::generateFood() {
   bool invalidPlace = false;
-  std::uniform_int_distribution randomX{ 1 , constants::WIDTH - 2 };
-  std::uniform_int_distribution randomY{ 1 , constants::HEIGHT - 2 };
+  std::uniform_int_distribution randomX(1 , constants::WIDTH - 2);
+  std::uniform_int_distribution randomY(1 , constants::HEIGHT - 2);
 
   while (true) {
     int tmpX = randomX(rng::mersenne);
@@ -75,6 +75,7 @@ bool Snake::detectCollision() {
     generateFood();
     score += 10;
     mvwprintw(window, constants::HEIGHT - 1, constants::WIDTH / 2 - 6, "  Score: %d  ", score);
+
     if ((score % 100) == 0) {
       delay -= 10'000;
     }
@@ -115,8 +116,8 @@ void Snake::moveSnake() {
     snake.pop_back();
   }
 
-  int posX{ snake.front().x };
-  int posY{ snake.front().y };
+  int posX = snake.front().x;
+  int posY = snake.front().y;
 
   if (direction == 'L') {
     posX = (snake.front().x - 1 <= 0) ? constants::WIDTH - 2 : snake.front().x - 1;
@@ -128,7 +129,7 @@ void Snake::moveSnake() {
     posY = (snake.front().y + 1 >= constants::HEIGHT - 1) ? 1 : snake.front().y + 1;
   }
 
-  snake.insert(snake.begin(), SnakeSegment{ posY, posX });
+  snake.insert(snake.begin(), SnakeSegment(posY, posX));
   mvwaddch(window, snake.front().y, snake.front().x, constants::SNAKE_SEGMENT_CHAR);
   wrefresh(window);
 }
