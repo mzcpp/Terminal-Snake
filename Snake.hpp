@@ -45,7 +45,7 @@ public:
   Snake();
   ~Snake();
 
-  void startGame();
+  void startGame() &&;
 };
 
 #endif
