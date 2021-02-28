@@ -1,7 +1,6 @@
 #include "Snake.hpp"
 
 int main() {
-  Snake s;
-  s.startGame();
+  Snake().startGame();
   return 0;
 }
