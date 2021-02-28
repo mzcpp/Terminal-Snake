@@ -141,6 +141,7 @@ void Snake::startGame() && {
   }
 
   mvwprintw(window, constants::HEIGHT / 2, constants::WIDTH / 2 - 5, "Game Over!");
+  mvwprintw(window, constants::HEIGHT / 2 + 1, constants::WIDTH / 2 - 10, "Press Space to Quit!");
   nodelay(window, false);
-  wgetch(window);
+  while (wgetch(window) != ' '); /* I'm sorry CPU. */
 }
