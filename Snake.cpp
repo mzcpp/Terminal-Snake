@@ -134,7 +134,7 @@ void Snake::moveSnake() {
   wrefresh(window);
 }
 
-void Snake::startGame() && {
+void Snake::run() && {
   while (!detectCollision()) {
     moveSnake();
     usleep(delay);
