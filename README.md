@@ -6,4 +6,4 @@ Compiled using command:
 clang++ -std=c++17 -lncurses main.cpp Snake.cpp
 ```
 
-<img src="https://media.giphy.com/media/EsB1GrRWt4PVJaZpoi/giphy.gif" alt="animated" />
+<img src="img/snake.gif" alt="animated" />
